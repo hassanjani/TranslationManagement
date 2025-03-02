@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: translation_db
+      MYSQL_ROOT_PASSWORD: hassan123
+    ports:
+      - "3306:3306"
+
+  app:
+    build: src/main/java/Translation/Management/Service
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/translation_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: hassan123
+    ports:
+      - "8080:8080"
